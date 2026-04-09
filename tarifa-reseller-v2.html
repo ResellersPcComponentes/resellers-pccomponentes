@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -202,10 +203,52 @@ footer a:hover{text-decoration:underline}
 .help-tag-green{background:var(--green-bg);color:var(--green)}
 .help-tag-gray{background:var(--surface2);color:var(--text2)}
 .help-divider{height:1px;background:var(--border);margin:16px 0}
+
+.login-overlay{position:fixed;inset:0;background:#1a1917;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:#fff;border-radius:14px;padding:40px 36px;max-width:380px;width:100%;text-align:center}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:28px}
+.login-logo-badge{background:#FF6B00;color:#fff;font-size:13px;font-weight:900;padding:5px 10px;border-radius:6px;font-family:'Syne',sans-serif}
+.login-logo-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#1a1917}
+.login-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#1a1917;margin-bottom:6px}
+.login-sub{font-size:13px;color:#9e9b94;margin-bottom:28px;line-height:1.5}
+.login-input{width:100%;padding:11px 14px;border:1px solid #e3e1db;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1917;outline:none;transition:border-color .15s;margin-bottom:10px;text-align:center;letter-spacing:.05em}
+.login-input:focus{border-color:#1a1917}
+.login-btn{width:100%;padding:12px;background:#1a1917;color:#fff;border:none;border-radius:8px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s;margin-bottom:12px}
+.login-btn:hover{background:#FF6B00}
+.login-error{font-size:12px;color:#c0392b;min-height:18px;margin-bottom:4px}
+.login-hint{font-size:11px;color:#c8c5be;line-height:1.5}
 </style>
 </head>
 <body>
 
+<div class="login-overlay" id="login-overlay">
+  <div class="login-box">
+    <div class="login-logo">
+      <img src="data:image/png;base64,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" alt="PcComponentes" style="height:44px;width:auto">
+    </div>
+    <div class="login-title">Tarifa Reseller</div>
+    <div class="login-sub">Acceso exclusivo para el programa Resellers.<br>Introduce la contraseña para continuar.</div>
+    <input class="login-input" type="password" id="login-input" placeholder="Contraseña" onkeydown="if(event.key==='Enter')checkLogin()">
+    <div class="login-error" id="login-error"></div>
+    <button class="login-btn" onclick="checkLogin()">Entrar</button>
+    <div class="login-hint">¿No tienes acceso? Contacta con tu gestor en<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9eecfbedfbf2f2fbeceddeeefdfdf1f3eef1f0fbf0eafbedb0fdf1f3">[email&#160;protected]</a></div>
+  </div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  var KEY='reseller_auth', PASS='resellers2026pcc';
+  function show(){ document.getElementById('login-overlay').style.display='flex'; }
+  function hide(){ document.getElementById('login-overlay').style.display='none'; }
+  if(sessionStorage.getItem(KEY)==='1'){ document.addEventListener('DOMContentLoaded', hide); }
+  else { document.addEventListener('DOMContentLoaded', show); }
+  window.checkLogin=function(){
+    var v=document.getElementById('login-input').value;
+    var e=document.getElementById('login-error');
+    if(v===PASS){ sessionStorage.setItem(KEY,'1'); hide(); }
+    else { e.textContent='Contraseña incorrecta. Inténtalo de nuevo.'; document.getElementById('login-input').value=''; document.getElementById('login-input').focus(); }
+  };
+})();
+</script>
 <header>
  <a href="https://www.pccomponentes.com/resellers" target="_blank" style="display:flex;align-items:center;text-decoration:none">
  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 36" height="28" style="display:block">
@@ -428,7 +471,8 @@ footer a:hover{text-decoration:underline}
  <div class="help-row-desc">El botón <strong>Exportar CSV</strong> descarga todos los productos visibles (con los filtros activos) incluyendo precios, márgenes y PVP sugerido según el margen que hayas configurado.</div>
  </div>
  </div>
- </div>
+ 
+      
 
  </div>
  </div>
@@ -781,16 +825,4 @@ function copySelectionLinks(){
   });
 }
 
-function dl(content,filename,type){
-  const blob=new Blob([content],{type});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=filename; a.click();
-}
-
-buildMarcaFilters();
-buildCatFilters();
-run();
-</script>
-</body>
-</html>
+function dl(content,file
